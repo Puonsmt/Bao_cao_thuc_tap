@@ -201,8 +201,8 @@ ORDER BY phong_ban ASC, luong DESC;
 
 ## ETL vs ELT
 
-**ETL** (Extract - Transform - Load):ETL là tên viết tắt của Extract, Transform và Load. Trong quá trình này, một công cụ ETL trích xuất dữ liệu từ các hệ thống nguồn RDBMS khác nhau sauddos chuyển đổi dữ liệu như áp dụng các phép biến đổi dữ liệu (tính toán, nối chuỗi,v.v…) và sau đó tải dữ liệu vào hệ thống Data Warehouse, ETL là những luồng từ “nguồn” tới “đích”.
-**ELT** (Extract - Load - Transform): ELT là một phương pháp khác để tiếp cận công cụ chuyển động dữ liệu. Thay vì chuyển đổi dữ liệu trước khi viết, ELT cho phép “hệ thống đích” chuyển đổi trước. Dữ liệu đầu tiên được sao chép vào “đích” sau đó được chuyển đổi tại đó. 
+- **ETL** (Extract - Transform - Load):ETL là tên viết tắt của Extract, Transform và Load. Trong quá trình này, một công cụ ETL trích xuất dữ liệu từ các hệ thống nguồn RDBMS khác nhau sauddos chuyển đổi dữ liệu như áp dụng các phép biến đổi dữ liệu (tính toán, nối chuỗi,v.v…) và sau đó tải dữ liệu vào hệ thống Data Warehouse, ETL là những luồng từ “nguồn” tới “đích”.
+- **ELT** (Extract - Load - Transform): ELT là một phương pháp khác để tiếp cận công cụ chuyển động dữ liệu. Thay vì chuyển đổi dữ liệu trước khi viết, ELT cho phép “hệ thống đích” chuyển đổi trước. Dữ liệu đầu tiên được sao chép vào “đích” sau đó được chuyển đổi tại đó. 
 
 ### So sánh ETL vs ELT
 
