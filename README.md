@@ -376,6 +376,104 @@ HDFS sử dụng kiến trúc **Master/Slave** gồm:
 
 ## Apache Kafka  
 
+### Apache Kafka là gì
+
+- Apache Kafka là một hệ thống xử lý dữ liệu thời gian thực mã nguồn mở được tạo ra tại LinkedIn và sau đó đã được chuyển giao phát triển bởi Apache Software Foundation. Nó đã trở thành một phần quan trọng của cơ sở hạ tầng cho các ứng dụng xử lý dữ liệu lớn và phân tán.
+
+- Kafka ra đời để giải quyết các thách thức liên quan đến xử lý dữ liệu thời gian thực, lưu trữ log và chia sẻ dữ liệu giữa các ứng dụng trong môi trường phân tán và có sự mở rộng.
+
+#### Ưu điểm của Apache Kafka
+
+- **Khả năng chịu tải cao**: Có thể mở rộng quy mô xử lý bằng cách thêm broker.
+- **Đảm bảo tính nhất quán**: Sử dụng mô hình log-based đảm bảo thứ tự và không mất dữ liệu.
+- **Độ tin cậy cao**: Vẫn truy cập được dữ liệu khi một số broker gặp sự cố.
+- **Xử lý sự kiện thời gian thực**: Giúp ứng dụng phản ứng nhanh với các sự kiện quan trọng.
+
+#### Nhược điểm của Apache Kafka
+
+- Phức tạp trong triển khai và quản lý.
+- Yêu cầu nhiều tài nguyên hệ thống.
+- Khó quản lý dữ liệu cũ.
+- Dễ bị quá tải nếu lưu trữ quá nhiều sự kiện không cần thiết.
+
+---
+
+###Kiến trúc của Apache Kafka
+<img width="758" height="217" alt="image" src="https://github.com/user-attachments/assets/57a6b559-9356-4eeb-aa2f-3f3abdbdb459" />
+
+Kiến trúc cơ bản của Kafka bao gồm các thành phần:
+
+#### Cluster
+
+Tập hợp nhiều máy chủ (broker) làm việc cùng nhau để cung cấp tính mở rộng, nhất quán và độ tin cậy.
+
+#### Broker
+
+Máy chủ chịu trách nhiệm xử lý và lưu trữ dữ liệu Kafka, quản lý các partition thuộc các topic.
+
+#### Topic
+
+- Dữ liệu được phân loại thành các chủ đề (topic).
+- Mỗi topic là một luồng dữ liệu độc lập.
+- Producer gửi dữ liệu đến topic; Consumer đọc dữ liệu từ topic.
+
+#### Partition
+
+- Mỗi topic có thể chia thành nhiều partition để phân tán và tăng hiệu suất.
+- Mỗi partition được lưu trữ trên một broker.
+- Dữ liệu được ghi và đọc theo thứ tự trong partition.
+
+#### Producer
+
+Thành phần gửi dữ liệu tới các topic trong Kafka.
+
+#### Consumer
+
+Thành phần đọc dữ liệu từ topic Kafka. Kafka đảm bảo rằng mỗi bản ghi chỉ được đọc bởi một consumer duy nhất (trong cùng một group).
+
+#### ZooKeeper
+
+- Quản lý trạng thái các broker trong cluster Kafka.
+- Giữ cho Kafka hoạt động ổn định và nhất quán.
+
+---
+
+### Apache Kafka trong hệ thống
+
+Kafka hoạt động theo mô hình **publish-subscribe** giống hệ thống message queue:
+- Kafka hoạt động dưới dạng một hệ thống phân tán gồm nhiều máy chủ broker, mỗi broker chịu trách nhiệm lưu trữ một phần dữ liệu và có thể mở rộng bằng cách thêm các broker mới.
+- Dữ liệu trong Kafka được phân chia thành các Topic, mỗi Topic đại diện cho một loại dữ liệu cụ thể. Mỗi chủ đề trong Kafka được chia thành các phân đoạn Partition và mỗi Partition chứa một phần dữ liệu và được lưu trữ trên một số Broker. Tương ứng với mỗi bản ghi Partition được gán một số offset duy nhất thể hiện vị trí của bản ghi trong Partition. Consumer sử dụng offset để theo dõi dữ liệu đã đọc.
+- Những người tạo ra dữ liệu gửi nó tới Kafka gọi là Producer. Producer gửi các bản ghi dữ liệu tới các Topic cụ thể trong Kafka.
+- Consumer là người sử dụng dữ liệu từ Kafka. Consumer đăng ký để theo dõi một hoặc nhiều Topic và nhận dữ liệu từ chúng.
+- Kafka hỗ trợ sao lưu dữ liệu trên nhiều broker để đảm bảo tính sẵn sàng và bảo mật. Mỗi partition có thể có nhiều bản sao được lưu trữ trên các broker khác nhau.
+- Khi có dữ liệu được gửi đến Kafka, nó sẽ được lưu trữ trong các partition tương ứng. Consumers có thể đọc dữ liệu thông qua các partition này theo offset và thực hiện xử lý tùy theo nhu cầu.
+
+- **Broker**: Mỗi broker lưu trữ một phần dữ liệu và có thể mở rộng bằng cách thêm broker mới.
+- **Topic**: Dữ liệu phân loại theo topic.
+- **Partition**: Mỗi topic chia thành các partition, mỗi partition có offset duy nhất cho từng bản ghi.
+- **Producer**: Gửi bản ghi đến topic cụ thể.
+- **Consumer**: Đăng ký theo dõi các topic và nhận dữ liệu.
+
+#### Tính năng mở rộng và sao lưu
+
+- Kafka sao lưu dữ liệu trên nhiều broker để đảm bảo sẵn sàng và an toàn.
+- Mỗi partition có thể có nhiều bản sao được lưu ở nhiều broker khác nhau.
+
+---
+### Kiến trúc Pub - Sub Messaging với Apache Kafk
+- Apache Kafka là một giải pháp mạnh mẽ cho kiến trúc Publish-Subscribe (Pub-Sub), giúp các ứng dụng xử lý dữ liệu thời gian thực có thể trao đổi thông tin một cách hiệu quả và đáng tin cậy. Dưới đây là quy trình hoạt động cơ bản của Kafka trong mô hình Pub-Sub:
+<img width="751" height="255" alt="image" src="https://github.com/user-attachments/assets/b2afed25-90c5-4bb2-96fb-3988f4a7e2d3" />
+  - Kafka Producer gửi message đến Topic
+  - Kafka Broker lưu trữ tất cả các message trong các partition được định cấu hình topic cụ thể đó, đảm bảo rằng các message được phân phối cân bằng giữa các partition. Ví dụ, Kafka sẽ lưu trữ một message trong partition đầu tiên và message thứ 2 trong partition thứ 2 nếu - producer gửi hai message và có hai partition.
+  - Kafka Consumer subscribes một topic cụ thể.
+  - Sau khi Consumer subscribes vào một topic, Kafka cung cấp offset hiện tại của topic cho Consumer và lưu nó trong Zookeeper.
+  - Consumer sẽ liên tục gửi request đến Kafka để pull về các message mới.
+  - Kafka sẽ chuyển tiếp tin nhắn đến Consumer ngay khi nhận được từ Producer.
+  - Consumer sẽ nhận được message và xử lý nó.
+  - Kafka Broker nhận được xác nhận về message được xử lý.
+  - Kafka cập nhật giá trị offset hiện tại ngay khi nhận được xác nhận. Ngay cả trong khi máy chủ outrages, consumer có thể đọc được message tiếp theo một cách chính xác, bởi Zookeeper quản lý các offset.
+  - Quy trình này lặp lại cho đến khi consumer dừng việc subcribes lại.
+
 ## Spark Streaming 
 
 ## Kiến trúc Lambda
