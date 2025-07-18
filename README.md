@@ -398,7 +398,7 @@ HDFS sử dụng kiến trúc **Master/Slave** gồm:
 
 ---
 
-###Kiến trúc của Apache Kafka
+### Kiến trúc của Apache Kafka
 <img width="758" height="217" alt="image" src="https://github.com/user-attachments/assets/57a6b559-9356-4eeb-aa2f-3f3abdbdb459" />
 
 Kiến trúc cơ bản của Kafka bao gồm các thành phần:
@@ -463,16 +463,16 @@ Kafka hoạt động theo mô hình **publish-subscribe** giống hệ thống m
 ### Kiến trúc Pub - Sub Messaging với Apache Kafk
 - Apache Kafka là một giải pháp mạnh mẽ cho kiến trúc Publish-Subscribe (Pub-Sub), giúp các ứng dụng xử lý dữ liệu thời gian thực có thể trao đổi thông tin một cách hiệu quả và đáng tin cậy. Dưới đây là quy trình hoạt động cơ bản của Kafka trong mô hình Pub-Sub:
 <img width="751" height="255" alt="image" src="https://github.com/user-attachments/assets/b2afed25-90c5-4bb2-96fb-3988f4a7e2d3" />
-  - Kafka Producer gửi message đến Topic
-  - Kafka Broker lưu trữ tất cả các message trong các partition được định cấu hình topic cụ thể đó, đảm bảo rằng các message được phân phối cân bằng giữa các partition. Ví dụ, Kafka sẽ lưu trữ một message trong partition đầu tiên và message thứ 2 trong partition thứ 2 nếu - producer gửi hai message và có hai partition.
-  - Kafka Consumer subscribes một topic cụ thể.
-  - Sau khi Consumer subscribes vào một topic, Kafka cung cấp offset hiện tại của topic cho Consumer và lưu nó trong Zookeeper.
-  - Consumer sẽ liên tục gửi request đến Kafka để pull về các message mới.
-  - Kafka sẽ chuyển tiếp tin nhắn đến Consumer ngay khi nhận được từ Producer.
-  - Consumer sẽ nhận được message và xử lý nó.
-  - Kafka Broker nhận được xác nhận về message được xử lý.
-  - Kafka cập nhật giá trị offset hiện tại ngay khi nhận được xác nhận. Ngay cả trong khi máy chủ outrages, consumer có thể đọc được message tiếp theo một cách chính xác, bởi Zookeeper quản lý các offset.
-  - Quy trình này lặp lại cho đến khi consumer dừng việc subcribes lại.
+- Kafka Producer gửi message đến Topic
+- Kafka Broker lưu trữ tất cả các message trong các partition được định cấu hình topic cụ thể đó, đảm bảo rằng các message được phân phối cân bằng giữa các partition. Ví dụ, Kafka sẽ lưu trữ một message trong partition đầu tiên và message thứ 2 trong partition thứ 2 nếu - producer gửi hai message và có hai partition.
+- Kafka Consumer subscribes một topic cụ thể.
+- Sau khi Consumer subscribes vào một topic, Kafka cung cấp offset hiện tại của topic cho Consumer và lưu nó trong Zookeeper.
+- Consumer sẽ liên tục gửi request đến Kafka để pull về các message mới.
+- Kafka sẽ chuyển tiếp tin nhắn đến Consumer ngay khi nhận được từ Producer.
+- Consumer sẽ nhận được message và xử lý nó.
+- Kafka Broker nhận được xác nhận về message được xử lý.
+- Kafka cập nhật giá trị offset hiện tại ngay khi nhận được xác nhận. Ngay cả trong khi máy chủ outrages, consumer có thể đọc được message tiếp theo một cách chính xác, bởi Zookeeper quản lý các offset.
+- Quy trình này lặp lại cho đến khi consumer dừng việc subcribes lại.
 
 ## Spark Streaming 
 
