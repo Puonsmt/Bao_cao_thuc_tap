@@ -598,6 +598,13 @@ Mặc dù kiến trúc Lambda rất mạnh mẽ, nó cũng có một số **hạ
 # Tuần 5: Workflow & Integration
 
 # Tuần 6: Product Pipeline 
+## Cấu trúc thư mục dự án 
+- rotate_log_to_hdfs.sh
+- monitoring_hdfs_log.sh
+- monitoring_alert.log
+- log_analysis.py
+- log_exporter.py 
+- cron_debug.log 
 
 
 
