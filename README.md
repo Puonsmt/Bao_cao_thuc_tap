@@ -463,6 +463,7 @@ Kafka hoạt động theo mô hình **publish-subscribe** giống hệ thống m
 ### Kiến trúc Pub - Sub Messaging với Apache Kafk
 - Apache Kafka là một giải pháp mạnh mẽ cho kiến trúc Publish-Subscribe (Pub-Sub), giúp các ứng dụng xử lý dữ liệu thời gian thực có thể trao đổi thông tin một cách hiệu quả và đáng tin cậy. Dưới đây là quy trình hoạt động cơ bản của Kafka trong mô hình Pub-Sub:
 <img width="751" height="255" alt="image" src="https://github.com/user-attachments/assets/b2afed25-90c5-4bb2-96fb-3988f4a7e2d3" />
+
 - Kafka Producer gửi message đến Topic
 - Kafka Broker lưu trữ tất cả các message trong các partition được định cấu hình topic cụ thể đó, đảm bảo rằng các message được phân phối cân bằng giữa các partition. Ví dụ, Kafka sẽ lưu trữ một message trong partition đầu tiên và message thứ 2 trong partition thứ 2 nếu - producer gửi hai message và có hai partition.
 - Kafka Consumer subscribes một topic cụ thể.
@@ -475,6 +476,46 @@ Kafka hoạt động theo mô hình **publish-subscribe** giống hệ thống m
 - Quy trình này lặp lại cho đến khi consumer dừng việc subcribes lại.
 
 ## Spark Streaming 
+- Spark Streaming là một thành phần quan trọng của Apache Spark, cho phép xử lý dữ liệu trực tiếp và liên tục từ nhiều nguồn khác nhau như Kafka, Flume, Kinesis, hoặc socket TCP/IP.
+<img width="734" height="379" alt="image" src="https://github.com/user-attachments/assets/1a7c5d50-d75a-42dd-9262-d37a939e7e12" />
+
+### Micro-batch Processing 
+- Spark Streaming sử dụng mô hình micro-batch processing, trong đó dữ liệu đến trong một khoảnh khắc nhất định được nhóm lại thành các micro-batch và xử lý bằng các quá trình xử lý tương tự như xử lý dữ liệu tĩnh trong Apache Spark
+
+- Micro-batch processing là cách mà Spark Streaming xử lý dữ liệu liên tục bằng cách chia dòng dữ liệu đến thành các "lô nhỏ" (micro-batches), mỗi lô được xử lý giống như batch dữ liệu thông thường trong Spark.
+
+#### Dữ liệu đầu vào (Input Data Stream)
+- Dữ liệu được thu thập từ các nguồn như Kafka, Flume, Kinesis, TCP socket, v.v.
+- Dữ liệu đến liên tục theo thời gian thực.
+
+#### Bộ chia micro-batch (Micro-batch Scheduler)
+- Spark Streaming chia dữ liệu thành các lô nhỏ (micro-batch) theo khoảng thời gian cố định, ví dụ mỗi 1 giây hoặc 5 giây.
+- Mỗi micro-batch được biểu diễn dưới dạng một RDD (Resilient Distributed Dataset).
+
+#### Xử lý batch (RDD Transformation)
+- Mỗi micro-batch được xử lý bằng các thao tác của Spark như: map, filter, reduceByKey, join, window, ...
+- Các phép biến đổi này được định nghĩa trên DStream (Discretized Stream).
+
+#### Đầu ra (Output Operations)
+- Kết quả của mỗi micro-batch có thể được ghi ra console, lưu vào hệ thống file (HDFS), cơ sở dữ liệu, hoặc đẩy vào hệ thống khác (Kafka, Elasticsearch, etc).
+
+## DStream 
+- **DStream** (Discretized Stream) là một cấu trúc dữ liệu trừu tượng (abstraction) chính trong Spark Streaming, đại diện cho một dòng dữ liệu liên tục theo thời gian.
+
+- Mỗi DStream là một chuỗi liên tục của các **RDDs** (Resilient Distributed Datasets) – mỗi RDD chứa dữ liệu thu thập được trong một **micro-batch** tại một thời điểm cụ thể.
+
+#### Sơ đồ minh họa cấu trúc DStream
+                   DStream
+                      │
+      ┌───────────────┼────────────────┐
+      ▼               ▼                ▼
+    RDD(t1)         RDD(t2)         RDD(t3)
+  (micro-batch)   (micro-batch)   (micro-batch)
+- t1, t2, t3, ... là các mốc thời gian được xác định sẵn (ví dụ: mỗi 1 giây).
+
+- Mỗi RDD(t) chứa dữ liệu được thu thập trong khoảng thời gian đó.
+
+- Các RDD này được xử lý theo tuần tự bằng các phép biến đổi (transformations).
 
 ## Kiến trúc Lambda
 
@@ -554,7 +595,9 @@ Mặc dù kiến trúc Lambda rất mạnh mẽ, nó cũng có một số **hạ
 | Phức tạp               | Cao                                | Thấp hơn                              |
 | Hỗ trợ dữ liệu lịch sử| Có (batch)                         | Có (lưu dữ liệu trong Kafka lâu dài) |
 
+# Tuần 5: Workflow & Integration
 
+# Tuần 6: Product Pipeline 
 
 
 
