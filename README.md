@@ -378,8 +378,6 @@ HDFS sử dụng kiến trúc **Master/Slave** gồm:
 
 ## Spark Streaming 
 
-# Kiến trúc Lambda và Kiến trúc Kappa
-
 ## Kiến trúc Lambda
 
 Kiến trúc Lambda là một kiến trúc xử lý dữ liệu được thiết kế để xử lý lượng dữ liệu khổng lồ bằng cách tận dụng cả phương pháp **xử lý hàng loạt (batch)** và **xử lý luồng (stream)**.
