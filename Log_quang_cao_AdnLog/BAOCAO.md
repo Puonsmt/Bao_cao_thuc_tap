@@ -302,13 +302,11 @@ pwd
 ##### **1.4 Tải file qua Teleport:**
 - Trong giao diện web Teleport, tìm nút "Files" hoặc "Upload".
 - Tải lên các file:
-  - `adnlog-api-20250725_171824.zip`
   - `adnlog-api-complete.zip`
 
 ##### **1.5 Giải nén file:**
 ```bash
 cd ~/adnlog-api
-unzip adnlog-api-20250725_171824.zip
 unzip adnlog-api-complete.zip
 ```
 
