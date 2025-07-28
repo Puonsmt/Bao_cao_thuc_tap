@@ -106,6 +106,9 @@ if (!runningTotalDF.isEmpty) {
 - Hiển thị DataFrame tổng hợp (`runningTotalDF`) theo thứ tự giảm dần của `count`, tối đa 100 dòng.
 - Nếu không có dữ liệu, in thông báo.
 
+<img width="467" height="372" alt="image" src="https://github.com/user-attachments/assets/1578ca22-7c05-438b-a27e-873ba6c23a8e" />
+
+
 ## 2. Đọc dữ liệu từ PageViewMobile 
 - Đọc dữ liệu Parquet từ thư mục `hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewMobile/` theo từng ngày (dựa trên tên thư mục kiểu `YYYY_MM_DD`).
 - Tính số lần xuất hiện (`count`) của mỗi `domain` trong mỗi ngày.
