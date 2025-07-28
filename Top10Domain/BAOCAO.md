@@ -4,8 +4,8 @@
 - Cộng dồn kết quả qua các ngày để tạo tổng hợp cuối cùng.
 - Hiển thị kết quả từng ngày và tổng hợp cuối cùng theo thứ tự giảm dần của `count`.
 
-## 2. Cấu trúc Code
-### 2.1. Khởi tạo Spark Session
+## a) Cấu trúc Code
+### a.1. Khởi tạo Spark Session
 ```scala
 val spark = SparkSession.builder().getOrCreate()
 import spark.implicits._
@@ -13,7 +13,7 @@ import spark.implicits._
 - Tạo hoặc lấy phiên bản Spark Session hiện có để xử lý dữ liệu.
 - Import các hàm implict để hỗ trợ thao tác DataFrame.
 
-### 2.2. Thiết lập đường dẫn và FileSystem
+### a.2. Thiết lập đường dẫn và FileSystem
 ```scala
 val baseDir = "hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewApp/"
 val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
@@ -21,7 +21,7 @@ val fs = FileSystem.get(spark.sparkContext.hadoopConfiguration)
 - Định nghĩa đường dẫn cơ sở (`baseDir`) đến thư mục HDFS chứa dữ liệu Parquet.
 - Lấy đối tượng `FileSystem` để liệt kê các file và thư mục.
 
-### 2.3. Lấy danh sách thư mục ngày
+### a.3. Lấy danh sách thư mục ngày
 ```scala
 val dayDirs = fs.listStatus(new Path(baseDir))
   .map(_.getPath)
@@ -32,7 +32,7 @@ val dayDirs = fs.listStatus(new Path(baseDir))
 - Lọc các thư mục có tên khớp với định dạng ngày (`YYYY_MM_DD`).
 - Sắp xếp theo thứ tự tăng dần của tên ngày.
 
-### 2.4. Xử lý từng ngày
+### a.4. Xử lý từng ngày
 ```scala
 var runningTotalDF: DataFrame = spark.emptyDataFrame
 
@@ -94,7 +94,7 @@ for (dayPath <- dayDirs) {
 - **Tạo DataFrame ngày**: Chuyển `dayCounts` thành DataFrame (`reducedDayDF`) và hiển thị.
 - **Cộng dồn**: Nếu `runningTotalDF` rỗng, gán `reducedDayDF`; nếu không, hợp nhất bằng cách cộng các giá trị `count` của `appId` giống nhau.
 
-### 2.5. Hiển thị kết quả cuối cùng
+### a.5. Hiển thị kết quả cuối cùng
 ```scala
 if (!runningTotalDF.isEmpty) {
   println("\n🏁 Kết quả tổng hợp toàn bộ:")
@@ -106,7 +106,7 @@ if (!runningTotalDF.isEmpty) {
 - Hiển thị DataFrame tổng hợp (`runningTotalDF`) theo thứ tự giảm dần của `count`, tối đa 100 dòng.
 - Nếu không có dữ liệu, in thông báo.
 
-## 1. Đọc dữ liệu từ PageViewMobile 
+## 2. Đọc dữ liệu từ PageViewMobile 
 - Đọc dữ liệu Parquet từ thư mục `hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewMobile/` theo từng ngày (dựa trên tên thư mục kiểu `YYYY_MM_DD`).
 - Tính số lần xuất hiện (`count`) của mỗi `domain` trong mỗi ngày.
 - Cộng dồn kết quả qua các ngày để tạo tổng hợp cuối cùng.
@@ -114,7 +114,7 @@ if (!runningTotalDF.isEmpty) {
 
 - Thực hiện tương tự đọc App chỉ cần thay đường dẫn thư mục
 
-## 1. Đọc dữ liệu từ PageViewV1 (PC)
+## 3. Đọc dữ liệu từ PageViewV1 (PC)
 - Đọc dữ liệu Parquet từ thư mục `hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewV1/` theo từng ngày (dựa trên tên thư mục kiểu `YYYY_MM_DD`).
 - Tính số lần xuất hiện (`count`) của mỗi `domain` trong mỗi ngày.
 - Cộng dồn kết quả qua các ngày để tạo tổng hợp cuối cùng.
