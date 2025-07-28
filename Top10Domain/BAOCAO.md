@@ -125,4 +125,6 @@ if (!runningTotalDF.isEmpty) {
 - Cộng dồn kết quả qua các ngày để tạo tổng hợp cuối cùng.
 - Hiển thị kết quả từng ngày và tổng hợp cuối cùng theo thứ tự giảm dần của `count`.
 
-- Thực hiện tươgn tự đọc App và Mobile chỉ cần thay đường dẫn thư mục 
+- Thực hiện tươgn tự đọc App và Mobile chỉ cần thay đường dẫn thư mục
+<img width="379" height="375" alt="image" src="https://github.com/user-attachments/assets/e697332c-9052-412e-8c9e-13ff9ae0c4e0" />
+
