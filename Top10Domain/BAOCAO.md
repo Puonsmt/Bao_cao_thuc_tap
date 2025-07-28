@@ -116,6 +116,8 @@ if (!runningTotalDF.isEmpty) {
 - Hiển thị kết quả từng ngày và tổng hợp cuối cùng theo thứ tự giảm dần của `count`.
 
 - Thực hiện tương tự đọc App chỉ cần thay đường dẫn thư mục
+  <img width="361" height="377" alt="image" src="https://github.com/user-attachments/assets/0b9ab348-f866-4115-b8c5-7ce1b0f63abd" />
+
 
 ## 3. Đọc dữ liệu từ PageViewV1 (PC)
 - Đọc dữ liệu Parquet từ thư mục `hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewV1/` theo từng ngày (dựa trên tên thư mục kiểu `YYYY_MM_DD`).
