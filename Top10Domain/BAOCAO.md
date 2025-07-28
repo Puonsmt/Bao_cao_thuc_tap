@@ -38,14 +38,14 @@ var runningTotalDF: DataFrame = spark.emptyDataFrame
 
 for (dayPath <- dayDirs) {
   val day = dayPath.getName
-  println(s"\n🟢 Đang xử lý ngày: $day")
+  println(s"\nĐang xử lý ngày: $day")
 
   val parquetFiles = fs.listStatus(dayPath)
     .map(_.getPath.toString)
     .filter(_.endsWith(".parquet"))
 
   if (parquetFiles.isEmpty) {
-    println(s"⚠️ Không có file parquet trong $day")
+    println(s"Không có file parquet trong $day")
   } else {
     val batchSize = 1
     val fileGroups = parquetFiles.grouped(batchSize).toList
@@ -53,7 +53,7 @@ for (dayPath <- dayDirs) {
     var dayCounts = scala.collection.mutable.Map[String, Long]()
 
     for ((group, idx) <- fileGroups.zipWithIndex) {
-      println(s"   📦 Nhóm ${idx + 1}/${fileGroups.size}")
+      println(s"    Nhóm ${idx + 1}/${fileGroups.size}")
       val df = spark.read.parquet(group: _*)
         .select("appId")
         .groupBy("appId")
@@ -69,7 +69,7 @@ for (dayPath <- dayDirs) {
 
     val reducedDayDF = dayCounts.toSeq.toDF("appId", "count")
 
-    println(s"📊 Kết quả cho ngày $day:")
+    println(s"Kết quả cho ngày $day:")
     reducedDayDF.orderBy(desc("count")).show(truncate = false)
 
     if (runningTotalDF.isEmpty) {
@@ -97,10 +97,10 @@ for (dayPath <- dayDirs) {
 ### a.5. Hiển thị kết quả cuối cùng
 ```scala
 if (!runningTotalDF.isEmpty) {
-  println("\n🏁 Kết quả tổng hợp toàn bộ:")
+  println("\nKết quả tổng hợp toàn bộ:")
   runningTotalDF.orderBy(desc("count")).show(100, truncate = false)
 } else {
-  println("🚫 Không có dữ liệu được xử lý.")
+  println("Không có dữ liệu được xử lý.")
 }
 ```
 - Hiển thị DataFrame tổng hợp (`runningTotalDF`) theo thứ tự giảm dần của `count`, tối đa 100 dòng.
