@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tra cứu người dùng theo banner hoặc campaign</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            padding: 30px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"], input[type="date"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 80%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #banner_input, #campaign_input {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tra cứu số lượng user (click/view)</h2>
+
+    <form method="POST" action="/query">
+        <label for="query_type">Chọn loại truy vấn:</label>
+        <select name="query_type" id="query_type" onchange="toggleInputFields()">
+            <option value="banner">Theo Banner ID</option>
+            <option value="campaign">Theo Campaign ID</option>
+        </select>
+
+        <div id="banner_input">
+            <label for="bannerId">Nhập Banner ID:</label>
+            <input type="number" name="bannerId" required>
+        </div>
+
+        <div id="campaign_input" style="display: none;">
+            <label for="campaignId">Nhập Campaign ID:</label>
+            <input type="number" name="campaignId">
+        </div>
+
+        <label for="click_or_view">Chọn hành vi:</label>
+        <select name="click_or_view" required>
+            <option value="true">View</option>
+            <option value="false">Click</option>
+        </select>
+
+        <label for="start_date">Từ ngày:</label>
+        <input type="date" name="start_date" required>
+
+        <label for="end_date">Đến ngày:</label>
+        <input type="date" name="end_date" required>
+
+        <button type="submit">Gửi truy vấn</button>
+    </form>
+
+    {% if result %}
+        <h3 style="text-align: center; margin-top: 40px;">Kết quả truy vấn</h3>
+        <table>
+            <tr>
+                {% if result[0]|length == 3 %}
+                    <th>ID</th>
+                    <th>click_or_view</th>
+                    <th>estimated_user_count</th>
+                {% endif %}
+            </tr>
+            {% for row in result %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <script>
+        function toggleInputFields() {
+            var queryType = document.getElementById("query_type").value;
+            if (queryType === "banner") {
+                document.getElementById("banner_input").style.display = "block";
+                document.getElementById("campaign_input").style.display = "none";
+            } else {
+                document.getElementById("banner_input").style.display = "none";
+                document.getElementById("campaign_input").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
