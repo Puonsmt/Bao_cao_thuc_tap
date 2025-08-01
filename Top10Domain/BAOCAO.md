@@ -72,12 +72,13 @@ val top10Domainds = appUserCountDF.orderBy(desc("userCount")).limit(10)
 top10Domainds.show(truncate = false)
 ```
 - Kết quả:
-<img width="444" height="332" alt="image" src="https://github.com/user-attachments/assets/79f79cce-51fe-4ab7-9225-89801cccf640" />
+<img width="409" height="353" alt="image" src="https://github.com/user-attachments/assets/21117e77-7d2a-43d3-a3ad-d75f388329a0" />
 
-## 3. Đọc dữ liệu từ PageViewMobile 
+
+## 3. Đọc dữ liệu từ PageViewV1 
 ### Lấy dữ liệu từ hdfs về spark-shell 
 ```
-val df = spark.read.parquet("hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewMobile/*")
+val df = spark.read.parquet("hdfs://adt-platform-dev-106-254:8120/data/Parquet/PageViewV1/*")
 ```
 ### Thực hiện import thư viện spark.sql
 ```
@@ -105,4 +106,5 @@ val top10Domainds = appUserCountDF.orderBy(desc("userCount")).limit(10)
 top10Domainds.show(truncate = false)
 ```
 - Kết quả:
-<img width="444" height="332" alt="image" src="https://github.com/user-attachments/assets/79f79cce-51fe-4ab7-9225-89801cccf640" />
+<img width="432" height="357" alt="image" src="https://github.com/user-attachments/assets/1e5e664a-a275-4f7f-b5c1-0aeb708543e9" />
+
